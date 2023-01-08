@@ -4,14 +4,12 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import {Link } from "react-router-dom";
 
-export const Home = () => {
+export const Private = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="text-center mt-5">
-			<h1 className="display-1 mb-4">Welcome</h1>
-<Link to="/signup/"><button className="btn btn-primary me-2">Sign up</button></Link>
-<Link to="/login/"><button className="btn btn-primary">Log in</button></Link>
+		<div className="container text-center mt-5">
+<h1>PRIVATE</h1>
 
 		</div>
 	);
