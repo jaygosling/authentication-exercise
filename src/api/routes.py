@@ -9,6 +9,7 @@ from flask_jwt_extended import JWTManager, create_access_token
 api = Blueprint('api', __name__)
 
 
+
 @api.route('/hello', methods=['POST', 'GET'])
 def handle_hello():
 
@@ -35,9 +36,21 @@ def token():
 
 @api.route('/signup', methods=['POST'])
 def signup():
+    
 
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
+    username = request.json.get("username", None)
 
-    return jsonify(response_body), 200
+    checkUser = User.query.filter_by(username=username).first()
+    if (checkUser):
+        return jsonify({"msg": "Username Already Exists"}), 401
+    
+    user = User()
+    user.username = request.json.get("username", None)
+    user.password = request.json.get("password", None)
+
+    db.session.add(user)
+    db.session.commit()
+
+    # create a new token with the user id inside
+
+    return jsonify({"msg":"Everything Went Well"}), 200
